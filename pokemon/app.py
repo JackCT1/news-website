@@ -34,3 +34,8 @@ def get_all_pokemon():
 @app.route("/pokemon/<id>")
 def get_pokemon_by_id(id):
     return jsonify(pokemon_data[int(id)])
+
+
+@app.route("pokemon/<id>/types")
+def get_pokemon_types(id):
+    return ""
