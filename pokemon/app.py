@@ -29,3 +29,8 @@ def pokemon():
 def get_all_pokemon():
     # TODO: return a JSON object of all pokemon.
     return jsonify(pokemon_data), 200
+
+
+@app.route("/pokemon/<id>")
+def get_pokemon_by_id():
+    return ""
