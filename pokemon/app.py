@@ -39,3 +39,8 @@ def get_pokemon_by_id(id):
 @app.route("pokemon/<id>/types")
 def get_pokemon_types(id):
     return ""
+
+
+@app.route("type/<type>")
+def get_all_type_pokemon():
+    return ""
