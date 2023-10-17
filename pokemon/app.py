@@ -52,4 +52,6 @@ def get_all_type_pokemon(type):
     matching_pokemon = []
     for id in matching_pokemon_ids:
         matching_pokemon.append(pokemon_data[id - 1])
+    if len(matching_pokemon) == 0:
+        return 404
     return jsonify(matching_pokemon)
