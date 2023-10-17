@@ -45,5 +45,11 @@ def get_pokemon_types(id):
 
 
 @app.route("/type/<type>")
-def get_all_type_pokemon():
-    return ""
+def get_all_type_pokemon(type):
+    matching_pokemon_ids = [
+        pokemon["pokemon_id"] for pokemon in pokemon_types if pokemon["type"] == type
+    ]
+    matching_pokemon = []
+    for id in matching_pokemon_ids:
+        matching_pokemon.append(pokemon_data[id - 1])
+    return jsonify(matching_pokemon)
