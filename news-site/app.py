@@ -105,7 +105,10 @@ def scrape():
 
 @app.route("/stories", methods=["GET", "POST"])
 def get_stories():
-    pass
+    stories_list = []
+    if len(stories_list) == 0:
+        return jsonify({"error": True, "message": "No stories were found"}), 404
+    return jsonify(stories_list), 200
 
 
 if __name__ == "__main__":
