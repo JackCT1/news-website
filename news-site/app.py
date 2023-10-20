@@ -110,5 +110,19 @@ def get_stories():
     return jsonify(stories), 200
 
 
+@app.route("/stories/<id>/votes", methods=["POST"])
+def add_vote(id):
+    if request.method == "POST":
+        data = request.json
+        print(data)
+        for story in stories:
+            if story["id"] == int(id):
+                if data["direction"] == "up":
+                    story["score"] += 1
+                elif data["direction"] == "down":
+                    story["score"] -= 1
+    return jsonify(stories), 200
+
+
 if __name__ == "__main__":
     app.run(debug=True, host="0.0.0.0", port=5000)
