@@ -119,8 +119,10 @@ def add_vote(id):
             if story["id"] == int(id):
                 if data["direction"] == "up":
                     story["score"] += 1
+                    story["updated_at"] = datetime.now()
                 elif data["direction"] == "down":
                     story["score"] -= 1
+                    story["updated_at"] = datetime.now()
     return jsonify(stories), 200
 
 
