@@ -107,6 +107,8 @@ def scrape():
 def get_stories():
     if len(stories) == 0:
         return jsonify({"error": True, "message": "No stories were found"}), 404
+    args = request.args.to_dict()
+    search = args.get("search")
     return jsonify(stories), 200
 
 
