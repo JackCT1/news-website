@@ -121,6 +121,14 @@ def add_vote(id):
                     story["score"] += 1
                     story["updated_at"] = datetime.now()
                 elif data["direction"] == "down":
+                    if story["score"] == 0:
+                        return jsonify(
+                            {
+                                "error": True,
+                                "message": "Can't downvote for a story with a score of 0",
+                            },
+                            404,
+                        )
                     story["score"] -= 1
                     story["updated_at"] = datetime.now()
     return jsonify(stories), 200
