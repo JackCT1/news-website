@@ -109,6 +109,9 @@ def get_stories():
         return jsonify({"error": True, "message": "No stories were found"}), 404
     args = request.args.to_dict()
     search = args.get("search")
+    if search:
+        searched_stories = [story for story in stories if search in story.title]
+        return jsonify(searched_stories), 200
     return jsonify(stories), 200
 
 
