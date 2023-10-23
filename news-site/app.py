@@ -114,6 +114,9 @@ def get_stories():
             story for story in stories if search.lower() in story["title"].lower()
         ]
         return jsonify(searched_stories), 200
+    sort = args.get("sort")
+    if sort:
+        return ""
     return jsonify(stories), 200
 
 
