@@ -126,7 +126,17 @@ def get_stories():
             return jsonify(sorted(stories, key=lambda x: x[sort], reverse=True)), 200
     if request.method == "POST":
         data = request.json
-        return "", 200
+        stories.append(
+            {
+                "created_at": datetime.now(),
+                "id": len(stories) + 1,
+                "score": 0,
+                "title": data["title"],
+                "updated_at": datetime.now(),
+                "url": data["url"],
+            }
+        )
+        return jsonify(stories), 200
 
 
 @app.route("/stories/<id>/votes", methods=["POST"])
