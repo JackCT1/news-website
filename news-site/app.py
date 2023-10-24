@@ -115,8 +115,8 @@ def get_stories():
         ]
         return jsonify(searched_stories), 200
     sort = args.get("sort")
-    if sort:
-        return "", 200
+    if sort == "title":
+        return jsonify(sorted(stories, key=lambda x: x["title"])), 200
     return jsonify(stories), 200
 
 
