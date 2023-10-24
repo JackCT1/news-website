@@ -115,8 +115,14 @@ def get_stories():
         ]
         return jsonify(searched_stories), 200
     sort = args.get("sort")
-    if sort == "title":
-        return jsonify(sorted(stories, key=lambda x: x["title"])), 200
+    if sort.lower() == "created":
+        sort = "created_at"
+    if sort.lower() == "modified":
+        sort = "updated_at"
+    if args.get("order") == "ascending":
+        return jsonify(sorted(stories, key=lambda x: x[sort])), 200
+    else:
+        return jsonify(sorted(stories, key=lambda x: x[sort], reverse=True)), 200
     return jsonify(stories), 200
 
 
