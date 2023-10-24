@@ -141,13 +141,16 @@ def get_stories():
 
 @app.route("/stories/<id>", methods=["PATCH", "DELETE"])
 def update_story(id):
+    global stories
     if request.method == "PATCH":
         data = request.json
         updated_story = stories[int(id) - 1]
         updated_story["title"] = data["title"]
         updated_story["url"] = data["url"]
         updated_story["updated_at"] = datetime.now()
+
     if request.method == "DELETE":
+        print(id)
         stories = [story for story in stories if story["id"] != int(id)]
     return jsonify(stories), 200
 
