@@ -105,25 +105,28 @@ def scrape():
 
 @app.route("/stories", methods=["GET", "POST"])
 def get_stories():
-    if len(stories) == 0:
-        return jsonify({"error": True, "message": "No stories were found"}), 404
-    args = request.args.to_dict()
-    search = args.get("search")
-    if search:
-        searched_stories = [
-            story for story in stories if search.lower() in story["title"].lower()
-        ]
-        return jsonify(searched_stories), 200
-    sort = args.get("sort")
-    if sort.lower() == "created":
-        sort = "created_at"
-    if sort.lower() == "modified":
-        sort = "updated_at"
-    if args.get("order") == "ascending":
-        return jsonify(sorted(stories, key=lambda x: x[sort])), 200
-    else:
-        return jsonify(sorted(stories, key=lambda x: x[sort], reverse=True)), 200
-    return jsonify(stories), 200
+    if request.method == "GET":
+        if len(stories) == 0:
+            return jsonify({"error": True, "message": "No stories were found"}), 404
+        args = request.args.to_dict()
+        search = args.get("search")
+        if search:
+            searched_stories = [
+                story for story in stories if search.lower() in story["title"].lower()
+            ]
+            return jsonify(searched_stories), 200
+        sort = args.get("sort")
+        if sort.lower() == "created":
+            sort = "created_at"
+        if sort.lower() == "modified":
+            sort = "updated_at"
+        if args.get("order") == "ascending":
+            return jsonify(sorted(stories, key=lambda x: x[sort])), 200
+        else:
+            return jsonify(sorted(stories, key=lambda x: x[sort], reverse=True)), 200
+    if request.method == "POST":
+        data = request.json
+        return "", 200
 
 
 @app.route("/stories/<id>/votes", methods=["POST"])
