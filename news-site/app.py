@@ -139,6 +139,12 @@ def get_stories():
         return jsonify(stories), 200
 
 
+@app.route("/stories/<id>", methods=["PATCH"])
+def update_story(id):
+    data = request.json
+    return jsonify(stories), 200
+
+
 @app.route("/stories/<id>/votes", methods=["POST"])
 def add_vote(id):
     if request.method == "POST":
