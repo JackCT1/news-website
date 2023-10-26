@@ -1,6 +1,7 @@
 from urllib.request import urlopen
 from datetime import datetime
 from bs4 import BeautifulSoup
+import psycopg2
 
 
 def get_html(url):
