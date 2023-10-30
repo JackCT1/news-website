@@ -3,6 +3,8 @@ from flask import Flask, current_app, jsonify, request
 from datetime import datetime
 from json import load
 
+import news_scraper
+
 f = open("stories.json")
 stories = load(f)
 
@@ -19,9 +21,16 @@ def addstory():
     return current_app.send_static_file("./addstory/index.html")
 
 
-@app.route("/scrape", methods=["GET"])
+@app.route("/scrape", methods=["GET", "POST"])
 def scrape():
-    return current_app.send_static_file("./scrape/index.html")
+    if request.method == "GET":
+        return current_app.send_static_file("./scrape/index.html")
+    if request.method == "POST":
+        data = request.json
+        # print(data)
+        bbc_html_doc = news_scraper.get_html(data["url"])
+        news_scraper.parse_stories_bs(data["url"], bbc_html_doc, stories)
+        return jsonify(stories), 200
 
 
 @app.route("/stories", methods=["GET", "POST"])
