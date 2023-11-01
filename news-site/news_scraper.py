@@ -17,8 +17,6 @@ def parse_stories_bs(domain_url, html, stories):
     soup = BeautifulSoup(html, "html.parser")
     tags = soup.find_all("a", class_=STORY_ANCHOR_TAG_CLASS)
     for tag in tags:
-        print(tag.span.p.span.string)
-        print(tag.get("href"))
         title = tag.span.p.span.string
         url = domain_url + tag.get("href")
         if title and url:
